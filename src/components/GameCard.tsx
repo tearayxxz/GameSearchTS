@@ -12,12 +12,10 @@ interface GameCardProps {
   };
 }
 
-const API_KEY = "d0dc6eac4c6c4f5aa79eb4f6f4d79852";
-
 const GameCard: React.FC<GameCardProps> = ({ game }) => {
   return (
     <Link
-      to={`/games/${game.id}?key=${API_KEY}`}
+      to={`/games/${game.id}`}
       className="card bg-white shadow-xl transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
     >
       <figure>

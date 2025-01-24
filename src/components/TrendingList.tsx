@@ -2,8 +2,6 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTrendingStore } from "../store/useTrendingStore";
 
-const API_KEY = "d0dc6eac4c6c4f5aa79eb4f6f4d79852";
-
 export default function TrendingList() {
   const { trendingGames, fetchTrendingGames } = useTrendingStore();
 
@@ -24,7 +22,7 @@ export default function TrendingList() {
         {trendingGames.slice(0, 3).map((game, index) => (
           <Link
             key={index}
-            to={`/games/${game.id}?key=${API_KEY}`}
+            to={`/games/${game.id}`}
             className={`${
               index === 0
                 ? "col-span-6 col-start-2 row-span-2"

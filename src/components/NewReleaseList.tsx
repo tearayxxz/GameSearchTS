@@ -2,8 +2,6 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useGameStore } from "../store/useGameStore";
 
-const API_KEY = "d0dc6eac4c6c4f5aa79eb4f6f4d79852";
-
 export default function NewReleaseList() {
   const { newReleaseGames, fetchNewReleaseGames } = useGameStore();
 
@@ -21,7 +19,7 @@ export default function NewReleaseList() {
         {newReleaseGames.slice(0, 3).map((game, index) => (
           <Link
             key={index}
-            to={`/games/${game.id}?key=${API_KEY}`}
+            to={`/games/${game.id}`}
             className="card bg-white shadow-xl transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
           >
             <figure>
