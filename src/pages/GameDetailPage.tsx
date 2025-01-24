@@ -247,7 +247,7 @@ export default function GameDetailPage() {
               .map((p: Platform) => (
                 <div key={p.platform.id}>
                   <p>
-                    {p.requirements && Object.keys(p.requirements).length > 0
+                    {p.requirements && p.requirements.recommended
                       ? p.requirements.recommended
                       : "Not available"}
                   </p>
