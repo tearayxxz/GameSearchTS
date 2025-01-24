@@ -1,7 +1,7 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 
-const API_KEY = 'd0dc6eac4c6c4f5aa79eb4f6f4d79852';
+const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = 'https://api.rawg.io/api';
 
 // ฟังก์ชันคำนวณ Trending Score
