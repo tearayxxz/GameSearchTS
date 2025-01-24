@@ -219,20 +219,20 @@ export default function GameDetailPage() {
 
           <div className="flex justify-center gap-5 mt-5">
             <div className="text-center">
-              <h1 className="text-xl">MetaScore</h1>
-              <div className="border-4 border-[#02204D] rounded-xl w-32 h-24 flex items-center justify-center">
+              <h1 className=" text-md sm:text-xl">MetaScore</h1>
+              <div className="border-4 border-[#02204D] rounded-xl  w-20 sm:w-32 h-24 flex items-center justify-center transition-all">
                 {gameDetails.metacritic || "N/A"}
               </div>
             </div>
             <div className="text-center">
-              <h1 className="text-xl">Publisher</h1>
-              <div className="border-4 border-[#02204D] rounded-xl w-32 h-24 flex items-center justify-center">
+              <h1 className="text-md sm:text-xl">Publisher</h1>
+              <div className="border-4 border-[#02204D] rounded-xl  w-24 sm:w-32 h-24 flex items-center justify-center transition-all">
                 {gameDetails.publishers[0]?.name || "Not available"}
               </div>
             </div>
             <div className="text-center">
-              <h1 className="text-xl">Release date</h1>
-              <div className="border-4 border-[#02204D] rounded-xl w-32 h-24 flex items-center justify-center">
+              <h1 className="text-md sm:text-xl">Release date</h1>
+              <div className="border-4 border-[#02204D] rounded-xl w-24 px-3 sm:px-0 sm:w-32 h-24 flex items-center justify-center transition-all">
                 {gameDetails.released || "N/A"}
               </div>
             </div>
