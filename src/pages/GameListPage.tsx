@@ -35,14 +35,6 @@ export default function GameListPage() {
   const [genreName, setGenreName] = useState<string>("");
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setPreLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
     const fetchData = async () => {
       if (type === "trending") {
         await fetchTrendingGames();
@@ -56,7 +48,9 @@ export default function GameListPage() {
           setGenreName(genre.name);
         }
       }
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     };
 
     fetchData();
@@ -67,6 +61,14 @@ export default function GameListPage() {
     fetchNewReleaseGames,
     fetchGamesByGenre,
   ]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPreLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   if (preLoading) {
     return <LoadingSpinner />;
