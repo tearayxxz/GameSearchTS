@@ -22,7 +22,7 @@ export default function NewReleaseList() {
         <h1>New Release</h1>
         <Link
           to="/games?type=new-release"
-          className="text-orange-500 hover:underline hover:text-orange-600"
+          className="text-orange-500 hover:underline hover:text-orange-600 text-end"
         >
           show 12 more items
         </Link>

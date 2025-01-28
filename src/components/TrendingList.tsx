@@ -23,7 +23,7 @@ export default function TrendingList() {
         <h1>Trending</h1>
         <Link
           to="/games?type=trending"
-          className="text-orange-500 hover:underline hover:text-orange-600"
+          className="text-orange-500 hover:underline hover:text-orange-600 text-end"
         >
           show all 12 items
         </Link>
