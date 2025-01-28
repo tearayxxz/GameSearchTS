@@ -99,7 +99,7 @@ export default function GameDetailPage() {
 
   return (
     <div className="bg-gradient-to-b from-[#03050b] to-[#0a1130]">
-      <Navbar/>
+      <Navbar />
       <div className="max-w-[1127px] mx-auto px-5 mt-6">
         <div className="thumbnail customBtn max-w-[924px] mx-auto">
           <Swiper
@@ -121,12 +121,20 @@ export default function GameDetailPage() {
                   </video>
                 </SwiperSlide>
               ))}
-            {gameScreenshots &&
+
+            {gameScreenshots && gameScreenshots.length > 0 ? (
               gameScreenshots.map((screenshot: any) => (
                 <SwiperSlide key={screenshot.id}>
                   <img src={screenshot.image} alt="Screenshot" />
                 </SwiperSlide>
-              ))}
+              ))
+            ) : (
+              <SwiperSlide>
+                <div className="w-full h-full flex items-center justify-center text-white bg-black text-xl">
+                  Not available
+                </div>
+              </SwiperSlide>
+            )}
           </Swiper>
 
           <Swiper
@@ -146,17 +154,26 @@ export default function GameDetailPage() {
                   <img src={trailer.preview} alt="video" />
                 </SwiperSlide>
               ))}
-            {gameScreenshots &&
+            {gameScreenshots && gameScreenshots.length > 0 ? (
               gameScreenshots.map((screenshot: any) => (
                 <SwiperSlide key={screenshot.id}>
                   <img src={screenshot.image} alt="Screenshot" />
                 </SwiperSlide>
-              ))}
+              ))
+            ) : (
+              <SwiperSlide>
+                <div className="w-full h-full flex items-center justify-center bg-black text-white text-sm rounded-xl">
+                  Not available
+                </div>
+              </SwiperSlide>
+            )}
           </Swiper>
         </div>
         <div className="content mt-7 max-w-[924px] mx-auto">
-          <h1 className="text-5xl text-orange-500 mb-5">- {gameDetails.name} -</h1>
-          <hr className="h-[5px] bg-gradient-to-r from-orange-500 to-orange-800 border-none opacity-20"/>
+          <h1 className="text-5xl text-orange-500 mb-5">
+            - {gameDetails.name} -
+          </h1>
+          <hr className="h-[5px] bg-gradient-to-r from-orange-500 to-orange-800 border-none opacity-20" />
           <h1 className="mt-4 text-3xl mb-3">Rating</h1>
           <div className="flex flex-wrap gap-4">
             <div className="bg-green-500 text-white px-2 py-1 rounded backdrop-filter backdrop-blur-3xl bg-opacity-50">
@@ -204,16 +221,23 @@ export default function GameDetailPage() {
                   {!["PC", ...playstationPlatforms, ...xboxPlatforms].includes(
                     p.platform.name
                   ) && <FontAwesomeIcon icon={faGamepad} />}
-                  <span>| {p.platform.name}</span> {/* Platform name */}
+                  <span>| {p.platform.name}</span>
                 </div>
               ))}
             </div>
           </div>
 
           <h1 className="mt-4 mb-3 text-3xl">Genres</h1>
-          <p>{gameDetails.genres.map((genre: any) => genre.name).join(", ")}</p>
+          <p>
+            {gameDetails.genres.map((genre: any) => genre.name).join(", ") ||
+              "Not available"}
+          </p>
           <h1 className="mt-4 mb-3 text-3xl">Tags</h1>
-          <p>Tags: {gameDetails.tags.map((tag: any) => tag.name).join(", ")}</p>
+          <p>
+            Tags:{" "}
+            {gameDetails.tags.map((tag: any) => tag.name).join(", ") ||
+              "Not available"}
+          </p>
 
           <h1 className="mt-4 mb-3 text-3xl">About</h1>
           <p>{gameDetails.description_raw || "Not available"}</p>
