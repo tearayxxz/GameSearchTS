@@ -5,7 +5,7 @@ import { useGameStore } from "../store/useGameStore";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import LoadingSpinner from "../components/LoadingSpinner";
-import { getGenres } from "../services/api"; // Ensure the getGenres function is imported
+import { getGenres } from "../services/api";
 
 interface Game {
   id: number;
@@ -35,6 +35,14 @@ export default function GameListPage() {
   const [genreName, setGenreName] = useState<string>("");
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setPreLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       if (type === "trending") {
         await fetchTrendingGames();
@@ -48,9 +56,10 @@ export default function GameListPage() {
           setGenreName(genre.name);
         }
       }
+      
       setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 2000);
     };
 
     fetchData();
@@ -61,14 +70,6 @@ export default function GameListPage() {
     fetchNewReleaseGames,
     fetchGamesByGenre,
   ]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setPreLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   if (preLoading) {
     return <LoadingSpinner />;
