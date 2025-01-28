@@ -22,9 +22,9 @@ export default function NewReleaseList() {
         <h1>New Release</h1>
         <Link
           to="/games?type=new-release"
-          className="hover:underline hover:text-slate-600"
+          className="text-orange-500 hover:underline hover:text-orange-600"
         >
-          Show all
+          show 12 more items
         </Link>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-[83%] mx-auto justify-center">
@@ -47,7 +47,7 @@ export default function NewReleaseList() {
               <Link
                 key={index}
                 to={`/games/${game.id}`}
-                className="card bg-white shadow-xl transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
+                className="card shadow-xl transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-white backdrop-filter backdrop-blur-3xl bg-opacity-10"
               >
                 <figure>
                   <img
@@ -57,16 +57,16 @@ export default function NewReleaseList() {
                   />
                 </figure>
                 <div className="card-body p-4">
-                  <h2 className="card-title text-base font-semibold line-clamp-none sm:line-clamp-2 sm:h-12">
+                  <h1 className="card-title text-base font-semibold line-clamp-none sm:line-clamp-2 sm:h-12">
                     {game.name}
-                  </h2>
-                  <p>{game.released}</p>
-                  <p>
+                  </h1>
+                  <p className=" text-orange-300">{game.released}</p>
+                  <p className=" text-orange-400">
                     {game.platforms
                       ?.map((platform: any) => platform.platform.name)
                       .join(", ")}
                   </p>
-                  <p>Rating: {game.rating}</p>
+                  <p className=" text-orange-400">Rating: {game.rating}</p>
                 </div>
               </Link>
             ))}

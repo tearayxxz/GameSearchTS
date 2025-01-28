@@ -23,9 +23,9 @@ export default function TrendingList() {
         <h1>Trending</h1>
         <Link
           to="/games?type=trending"
-          className="hover:underline hover:text-slate-600"
+          className="text-orange-500 hover:underline hover:text-orange-600"
         >
-          Show all
+          show all 12 items
         </Link>
       </div>
 
@@ -43,14 +43,14 @@ export default function TrendingList() {
                 }`}
               >
                 <div
-                  className={`w-full flex items-center justify-center bg-gray-300 dark:bg-gray-700 rounded-xl object-cover transform transition-transform duration-300 animate-pulse ${
+                  className={`w-full flex items-center justify-center bg-gray-300 rounded-xl object-cover transform transition-transform duration-300 animate-pulse ${
                     index === 0
                       ? "rounded-3xl h-80 sm:h-[429px] hover:scale-105 hover:shadow-2xl"
                       : "rounded-3xl h-full hover:scale-105 hover:shadow-2xl"
                   }`}
                 >
                   <svg
-                    className="w-10 h-10 text-gray-200 dark:text-gray-600"
+                    className="w-10 h-10 text-gray-200"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor"

@@ -76,7 +76,7 @@ export default function GameDetailPage() {
 
   if (error) {
     return (
-      <div className="w-full h-screen flex flex-col items-center justify-center bg-white">
+      <div className="w-full h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#03050b] to-[#0a1130]">
         <h1 className="text-3xl">ERROR 404</h1>
         <h1 className="text-3xl text-red-600 ">Game not found</h1>
       </div>
@@ -98,9 +98,9 @@ export default function GameDetailPage() {
   };
 
   return (
-    <div className="bg-white">
-      <Navbar />
-      <div className="max-w-[1127px] mx-auto px-5 mt-[50px]">
+    <div className="bg-gradient-to-b from-[#03050b] to-[#0a1130]">
+      <Navbar/>
+      <div className="max-w-[1127px] mx-auto px-5 mt-6">
         <div className="thumbnail customBtn max-w-[924px] mx-auto">
           <Swiper
             loop={true}
@@ -155,28 +155,29 @@ export default function GameDetailPage() {
           </Swiper>
         </div>
         <div className="content mt-7 max-w-[924px] mx-auto">
-          <h1 className="text-5xl">{gameDetails.name}</h1>
-          <p className="mt-4 text-3xl mb-3">Rating</p>
+          <h1 className="text-5xl text-orange-500 mb-5">- {gameDetails.name} -</h1>
+          <hr className="h-[5px] bg-gradient-to-r from-orange-500 to-orange-800 border-none opacity-20"/>
+          <h1 className="mt-4 text-3xl mb-3">Rating</h1>
           <div className="flex flex-wrap gap-4">
-            <div className="bg-green-500 text-white px-2 py-1 rounded shadow-inner">
+            <div className="bg-green-500 text-white px-2 py-1 rounded backdrop-filter backdrop-blur-3xl bg-opacity-50">
               Very Positive |{" "}
               {gameDetails.ratings.find((rating: Rating) => rating.id === 5)
                 ?.count || 0}{" "}
               {/*id:5*/}
             </div>
-            <div className="bg-blue-500 text-white px-2 py-1 rounded shadow-inner">
+            <div className="bg-blue-500 text-white px-2 py-1 rounded backdrop-filter backdrop-blur-3xl bg-opacity-50">
               Positive |{" "}
               {gameDetails.ratings.find((rating: Rating) => rating.id === 4)
                 ?.count || 0}{" "}
               {/*id:4*/}
             </div>
-            <div className="bg-orange-400 text-white px-2 py-1 rounded shadow-inner">
+            <div className="bg-orange-400 text-white px-2 py-1 rounded backdrop-filter backdrop-blur-3xl bg-opacity-50">
               Negative |{" "}
               {gameDetails.ratings.find((rating: Rating) => rating.id === 3)
                 ?.count || 0}{" "}
               {/*id:3*/}
             </div>
-            <div className="bg-red-600 text-white px-2 py-1 rounded shadow-inner">
+            <div className="bg-red-600 text-white px-2 py-1 rounded backdrop-filter backdrop-blur-3xl bg-opacity-50">
               Very Negative |{" "}
               {gameDetails.ratings.find((rating: Rating) => rating.id === 1)
                 ?.count || 0}{" "}
@@ -189,7 +190,7 @@ export default function GameDetailPage() {
               {gameDetails.platforms.map((p: Platform) => (
                 <div
                   key={p.platform.id}
-                  className="px-2 py-1 rounded flex items-center gap-2 bg-[#D9D9D9]"
+                  className="px-2 py-1 rounded flex items-center gap-2 text-white bg-white backdrop-filter backdrop-blur-3xl bg-opacity-10"
                 >
                   {p.platform.name === "PC" && (
                     <FontAwesomeIcon icon={faDisplay} />
@@ -238,7 +239,7 @@ export default function GameDetailPage() {
             </div>
           </div>
 
-          <h1 className="mt-5 text-3xl">System requirements for PC</h1>
+          <h1 className="mt-5 mb-3 text-3xl">System requirements for PC</h1>
           {gameDetails.platforms.some(
             (p: Platform) => p.platform.name === "PC"
           ) ? (

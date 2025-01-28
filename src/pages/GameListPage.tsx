@@ -5,8 +5,7 @@ import { useGameStore } from "../store/useGameStore";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import LoadingSpinner from "../components/LoadingSpinner";
-
-const API_KEY = "d0dc6eac4c6c4f5aa79eb4f6f4d79852";
+import { getGenres } from "../services/api"; // Ensure the getGenres function is imported
 
 interface Game {
   id: number;
@@ -31,8 +30,17 @@ export default function GameListPage() {
     fetchGamesByGenre,
   } = useGameStore();
 
+  const [preLoading, setPreLoading] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [loadingSpinner, setLoadingSpinner] = useState(true);
+  const [genreName, setGenreName] = useState<string>("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPreLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,11 +50,15 @@ export default function GameListPage() {
         await fetchNewReleaseGames();
       } else if (type === "genre" && genreId) {
         await fetchGamesByGenre(genreId);
+        const genres = await getGenres();
+        const genre = genres.find((g: any) => g.id === parseInt(genreId || ""));
+        if (genre) {
+          setGenreName(genre.name);
+        }
       }
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
+      setLoading(false);
     };
+
     fetchData();
   }, [
     type,
@@ -56,39 +68,31 @@ export default function GameListPage() {
     fetchGamesByGenre,
   ]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoadingSpinner(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loadingSpinner) {
+  if (preLoading) {
     return <LoadingSpinner />;
   }
 
   if (loading) {
     return (
-      <div className="bg-white">
+      <div className="bg-gradient-to-b from-[#03050b] to-[#0a1130]">
         <Navbar />
         <div className="max-w-[1127px] m-auto mt-[24px] p-5">
           <h1 className="text-3xl mb-4">
-            {type === "trending"
-              ? "Trending Games"
-              : type === "new-release"
+            {type === "new-release"
               ? "New Release Games"
-              : "Genre Games"}
+              : type === "genre"
+              ? `${genreName || "Unknown"} Games`
+              : "Trending Games"}
           </h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {Array.from({ length: 12 }).map((_, index) => (
               <div
                 key={index}
-                className="card bg-white shadow-xl transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
+                className="card shadow-xl transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-white backdrop-filter backdrop-blur-3xl bg-opacity-10"
               >
                 <figure className="w-full h-64 sm:h-48 bg-slate-800">
                   {/* Skeleton Icon */}
-                  <div className="flex items-center justify-center h-64 sm:h-48 bg-gray-300 rounded-sm dark:bg-gray-700">
+                  <div className="flex items-center justify-center h-64 sm:h-48 bg-gray-300 rounded-sm">
                     <svg
                       className="w-[1127px] h-10 text-gray-200"
                       aria-hidden="true"
@@ -104,10 +108,10 @@ export default function GameListPage() {
 
                 {/* Skeleton Text */}
                 <div className="card-body p-4">
-                  <div className="w-full h-6 bg-gray-300 rounded-full animate-pulse mb-2"></div>
-                  <div className="w-full h-4 bg-gray-300 rounded-full animate-pulse mb-2"></div>
-                  <div className="w-full h-4 bg-gray-300 rounded-full animate-pulse mb-2"></div>
-                  <div className="w-full h-4 bg-gray-300 rounded-full animate-pulse"></div>
+                  <div className="w-full h-6 bg-gray-100 rounded-full animate-pulse mb-2"></div>
+                  <div className="w-full h-4 bg-gray-100 rounded-full animate-pulse mb-2"></div>
+                  <div className="w-full h-4 bg-gray-100 rounded-full animate-pulse mb-2"></div>
+                  <div className="w-full h-4 bg-gray-100 rounded-full animate-pulse"></div>
                 </div>
               </div>
             ))}
@@ -119,32 +123,31 @@ export default function GameListPage() {
   }
 
   let gamesToDisplay: Game[] = [];
-
-  if (type === "trending") {
-    gamesToDisplay = trendingGames;
-  } else if (type === "new-release") {
+  if (type === "new-release") {
     gamesToDisplay = newReleaseGames;
   } else if (type === "genre" && genreId) {
     gamesToDisplay = genreGames;
+  } else if (type === "trending") {
+    gamesToDisplay = trendingGames;
   }
 
   return (
-    <div className="bg-white">
+    <div className="bg-gradient-to-b from-[#03050b] to-[#0a1130]">
       <Navbar />
       <div className="max-w-[1127px] m-auto mt-[24px] p-5">
         <h1 className="text-3xl mb-4">
-          {type === "trending"
-            ? "Trending Games"
-            : type === "new-release"
+          {type === "new-release"
             ? "New Release Games"
-            : "Genre Games"}
+            : type === "genre"
+            ? `${genreName || "Unknown"} Games`
+            : "Trending Games"}
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {gamesToDisplay.map((game: Game, index) => (
             <Link
               key={index}
-              to={`/games/${game.id}?key=${API_KEY}`}
-              className="card bg-white shadow-xl transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
+              to={`/games/${game.id}`}
+              className="card shadow-xl transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-white backdrop-filter backdrop-blur-3xl bg-opacity-10"
             >
               <figure>
                 <img
@@ -154,16 +157,16 @@ export default function GameListPage() {
                 />
               </figure>
               <div className="card-body p-4">
-                <h2 className="card-title  text-base font-semibold line-clamp-none sm:line-clamp-2 sm:h-12">
+                <h1 className="card-title  text-base font-semibold line-clamp-none sm:line-clamp-2 sm:h-12">
                   {game.name}
-                </h2>
-                <p>{game.released}</p>
-                <p>
+                </h1>
+                <p className="text-orange-300">{game.released}</p>
+                <p className="text-orange-400">
                   {game.platforms
                     ?.map((platform) => platform.platform.name)
                     .join(", ")}
                 </p>
-                <p>Rating: {game.rating}</p>
+                <p className="text-orange-400">Rating: {game.rating}</p>
               </div>
             </Link>
           ))}

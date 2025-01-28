@@ -34,7 +34,7 @@ export default function GeneList() {
   }, [fetchGenres]);
 
   return (
-    <div className="max-w-[90%] lg:max-w-[1127px] m-auto bg-slate-500 mt-[26px] p-2 sm:p-5 rounded-xl flex justify-center items-center transition-all">
+    <div className="max-w-[90%] lg:max-w-[1127px] m-auto bg-white backdrop-filter backdrop-blur-3xl bg-opacity-10 mt-[26px] p-2 sm:p-5 rounded-xl flex justify-center items-center transition-all">
       {loading ? (
         <div
           className={`grid gap-5 w-full ${

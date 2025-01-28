@@ -47,8 +47,8 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-white">
-      <Navbar />
+    <div className="bg-gradient-to-b from-[#03050b] to-[#0a1130]">
+      <Navbar sticky={false} />
       <div className="max-w-[1127px] m-auto relative">
         <img
           src={Banner}
@@ -67,7 +67,7 @@ export default function Home() {
               type="text"
               placeholder="Search..."
               {...register("searchQuery")}
-              className="outline-none bg-white w-full"
+              className="outline-none bg-white w-full text-black"
             />
             <button type="button">
               <img src={SearchIcon} alt="Search Icon" className="w-6 h-6" />
